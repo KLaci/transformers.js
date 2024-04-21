@@ -33,6 +33,7 @@ describe('Processors', () => {
             vit: 'google/vit-base-patch16-224',
             mobilevit: 'apple/mobilevit-small',
             mobilevit_2: 'Xenova/quickdraw-mobilevit-small',
+            mobilevitv2: 'apple/mobilevitv2-1.0-imagenet1k-256',
             deit: 'facebook/deit-tiny-distilled-patch16-224',
             beit: 'microsoft/beit-base-patch16-224-pt22k-ft22k',
             detr: 'facebook/detr-resnet-50',
@@ -175,6 +176,23 @@ describe('Processors', () => {
         // MobileViTFeatureExtractor
         it(MODELS.mobilevit, async () => {
             const processor = await AutoProcessor.from_pretrained(m(MODELS.mobilevit))
+
+            {
+                const image = await load_image(TEST_IMAGES.tiger);
+                const { pixel_values, original_sizes, reshaped_input_sizes } = await processor(image);
+
+                compare(pixel_values.dims, [1, 3, 256, 256]);
+                compare(avg(pixel_values.data), 0.4599160496887033);
+
+                compare(original_sizes, [[408, 612]]);
+                compare(reshaped_input_sizes, [[256, 256]]);
+            }
+        }, MAX_TEST_EXECUTION_TIME);
+
+
+        // MobileViTFeatureExtractor
+        it(MODELS.mobilevitv2, async () => {
+            const processor = await AutoProcessor.from_pretrained(m(MODELS.mobilevitv2))
 
             {
                 const image = await load_image(TEST_IMAGES.tiger);

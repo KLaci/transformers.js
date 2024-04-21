@@ -830,6 +830,7 @@ export class EfficientNetImageProcessor extends ImageFeatureExtractor {
 
 
 export class MobileViTFeatureExtractor extends ImageFeatureExtractor { }
+export class MobileViTV2FeatureExtractor extends ImageFeatureExtractor { }
 export class OwlViTFeatureExtractor extends ImageFeatureExtractor {
     /** @type {post_process_object_detection} */
     post_process_object_detection(...args) {
@@ -2132,6 +2133,7 @@ export class AutoProcessor {
         WhisperFeatureExtractor,
         ViTFeatureExtractor,
         MobileViTFeatureExtractor,
+        MobileViTV2FeatureExtractor,
         OwlViTFeatureExtractor,
         Owlv2ImageProcessor,
         CLIPFeatureExtractor,
